@@ -1,15 +1,15 @@
-# 店长超级详情 - 移动端
+# 店长超级详情 - PC
 ## 项目简介
 超级详情是一套商品详情优化工具,让不会ps的用户也能轻松做设计,助力商家专心做好运营~
 
-目前分有两个载体,这里着重介绍**移动端**
+目前分有两个载体,这里着重介绍**PC端**
 + 移动端 ( H5 + 小程序 )
 + 网页端 ( H5 + 小程序 )
 
 ## 项目地址
 采用 `小程序 + online 版H5页面` 方案,分为两个项目
-+ 小程序 [superboss-miniapp-itemdetail](https://git2.superboss.cc/raycloudFrontEnd/superboss-miniapp-itemdetail)
-+ H5端( online ) [superboss-miniapp-itemdetail-editor](https://git2.superboss.cc/raycloudFrontEnd/superboss-miniapp-itemdetail-editor)
++ 小程序 [superboss-itemdetail-miniapp-pc](https://git2.superboss.cc/raycloudFrontEnd/superboss-itemdetail-miniapp-pc)
++ H5端( online ) [superboss-itemdetail-web](https://git2.superboss.cc/raycloudFrontEnd/superboss-itemdetail-web)
 
 ## 开发项目
 ``` js
