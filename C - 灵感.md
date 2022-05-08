@@ -3,3 +3,5 @@
 + [pc端右键](https://github.com/buuing/right-menu)
 + vscode 做一个插件 - 能自动生成一个 md 文件,里面有计划表什么的
 + 比如说项目内有一些文件需要加密还是怎么滴,就是不想放在github上被别人看到,该做个什么插件来搞呢
++ js 虚拟机啥东西
++ [好文章,待吸收](https://juejin.cn/post/6844903742370742279)
