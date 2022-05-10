@@ -50,3 +50,8 @@ Array.from({ length: 25 }, (v, i) => i - 12)
 - [x] 学习前端加密 (未完)
 - [x] rollup模板添加 rollup-plugin-commonjs 用以解析 cmj格式插件引入报错的情况(有些插件直接是cmj格式引入会报错,讲道理需要提供es模板,但是在他们没有提供的情况下需要引入此插件抹平差异)
 - [ ] 但是上面这种引入了好像 web-tracing 好像就引入失败了,明天试一下
+
+### 5.10
+- [ ] pnpm npm yarn 学习总结,并且安装插件调控这三个
+- [ ] pinia 学习总结
+- [ ] 想学习 vitesse 用到的一些技术
