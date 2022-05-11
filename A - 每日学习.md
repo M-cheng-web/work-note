@@ -61,3 +61,7 @@ Array.from({ length: 25 }, (v, i) => i - 12)
 - [ ] pnpm npm yarn 学习总结,并且安装插件调控这三个
 - [ ] pinia 学习总结
 - [ ] 想学习 vitesse 用到的一些技术
+
+### 5.11
+- [x] shell脚本配合node加密文件
+
