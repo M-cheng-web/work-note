@@ -58,3 +58,16 @@
 模板库 - 立即使用弹出框(三种选择图片素材的方式) 主图: 5h 本地: 5h 图片空间: 4h
 我的详情 - 主表格 6h
 我的详情 - 投放商品弹窗 5h
+
+
+
+focus() 如果在promise或者定时里面调用，在ios上是无效的
+
+
+
+``` 
+sh ./selfEncrypt/index.sh '*' 'src'
+* 直接会解析成路径数组再当做第一个参数给 sh脚本
+如果不加单引号,则相当于
+sh ./selfEncrypt/index.sh fileA fileB fileC ....
+```
