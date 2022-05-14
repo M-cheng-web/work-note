@@ -64,5 +64,5 @@ Array.from({ length: 25 }, (v, i) => i - 12)
 
 ### 5.11
 - [x] shell脚本配合node加密文件
-- [ ] 学习 shell 脚本
+- [x] 学习 shell 脚本
 
