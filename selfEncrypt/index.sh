@@ -16,6 +16,7 @@
 # 5. 增加防错功能,再加密错误后能倒退
 # 6. 可选是否要提交 git
 # 7. 最后可做成俩个文件,一个是普通的加密,一个是带git提交更新的文件
+# 8. 以后可以绑定 git,根据git 钩子来自动加密
 
 
 # 额外记录
@@ -33,6 +34,8 @@
 # fi
 
 # 带有空格的入参,比如 'a b c',会自动可以被遍历的 (for in 遍历带空格的都可以进行遍历)
+
+# echo $(ls | grep .js) 这样能拿到当前目录所有文件,然后 grep 筛选
 
 # 加密的几种方案
 # 1. 对比修改时间 (这个存在很多不确定性, 否)
@@ -119,15 +122,19 @@ done
 # 得到真正需要加密(或者解密)的文件数组
 # echo ${fileArr[@]}
 
-if [ -z $fileArr ]
-  then echo 根据规则选取的文件数为0,请重新选择
-  else
-    # node ./selfEncrypt/utils.js $1 ${fileArr[@]}
+# if [ -z $fileArr ]
+#   then echo 根据规则选取的文件数为0,请重新选择
+#   else
+#     # node ./selfEncrypt/utils.js $1 ${fileArr[@]}
 
-    # 对加密后的文件添加后缀名
-    echo ${fileArr[@]}
-fi
+#     # 对加密后的文件添加后缀名
+#     echo ${fileArr[@]}
+# fi
 
+
+echo $(ls | grep .js)
+
+https://blog.csdn.net/buxiaoxindasuile/article/details/50791050
 
 # git add -A
 # git commit -m 'feat: 每日任务'
