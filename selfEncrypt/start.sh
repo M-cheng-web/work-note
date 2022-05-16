@@ -8,7 +8,11 @@
 
 echo 1
 
-mv selfEncrypt .selfEncrypt
+需要自动屏蔽 git  怎么做
+
+# mv selfEncrypt .selfEncrypt
+
+mv asdqwe .asdqwe
 
 # filePath=".test_file.zzz"
 # touch $filePath
