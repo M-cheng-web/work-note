@@ -92,7 +92,7 @@ if [ -z $fileArr ]
 
     if [ $_pass = true ]
       then
-      # node ./SELF_ENCRYPT/utils.js $1 ${fileArr[@]}
+      node ./SELF_ENCRYPT/utils.js $1 ${fileArr[@]}
 
       if [ $ParamsA = on ]
         then
