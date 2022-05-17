@@ -45,7 +45,7 @@ function setFile(filePath, isEncrypt = true) {
 }
 
 const parmas = process.argv.slice(2);
-const isEncrypt = parmas[0] === 'push';
+const isEncrypt = parmas[0] === 'on';
 const fileList = parmas.slice(1);
 fileList.forEach((file) => {
   const filePath = path.resolve(__dirname, `../${file}`);

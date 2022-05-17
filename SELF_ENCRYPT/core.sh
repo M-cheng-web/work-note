@@ -56,7 +56,7 @@ if [ -z $fileArr ]
   then echo '根据规则选取的文件数为0,请重新选择'
   else
     _pass=true
-    if [ $ParamsA = push ]
+    if [ $ParamsA = on ]
       then
         # 加密场景: 不能重复加密,后缀名必须 不带有encrypt
         for file in ${fileArr[@]}
@@ -73,6 +73,7 @@ if [ -z $fileArr ]
         do
           if [ ${file:0-7} != encrypt ]
             then
+            # todo 这里要加个判断,不能有失败的就终止,毕竟拉取的时候是全局检索
             _pass=false
             echo '解密失败,[ '$file' ]文件不是已加密文件,只能对已加密文件解密'
           fi
@@ -83,7 +84,7 @@ if [ -z $fileArr ]
       then
       node ./SELF_ENCRYPT/utils.js $1 ${fileArr[@]}
 
-      if [ $ParamsA = push ]
+      if [ $ParamsA = on ]
         then
           # 对加密后的文件添加后缀名
           for file in ${fileArr[@]}
