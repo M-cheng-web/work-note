@@ -4,11 +4,13 @@
 
 defaultBranch=main
 
-if [ $1 = push ]
-  then
-    # git add -A
-    # git commit -m 'feat: 每日任务'
-    # git $1 origin $defaultBranch
-fi
+# if [ $1 = push ]
+#   then
+#     # git add -A
+#     # git commit -m 'feat: 每日任务'
+#     # git $1 origin $defaultBranch
+# fi
+
+echo git $1 origin $defaultBranch
 
 git $1 origin $defaultBranch

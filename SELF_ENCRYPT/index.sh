@@ -82,10 +82,10 @@ if [ $1 = nogit ]
   echo 'SELF_ENCRYPT' >> '.git/info/exclude'
 elif [[ $1 = on || $1 = off || $1 = push || $1 = pull ]]
   then
-  if [ $1 = on || $1 = off ]
+  if [[ $1 = on || $1 = off ]]
     then
       sh SELF_ENCRYPT/kernel.sh $1 $2 $3
-    elif then
+    else
       if [ $1 = push ]
         then
           # 先加密再推送
