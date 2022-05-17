@@ -1,6 +1,6 @@
 # 注意点:
 # 1. 目前只支持纯文本文件(.md .text js html vue ...), 不支持 .doc .ppt 这样的文件
-# 2. selfEncrypt 文件夹放在项目根目录
+# 2. SELF_ENCRYPT 文件夹放在项目根目录
 # 3. 执行脚本时 要求在项目根路径执行
 # 4. 传参不能手动传 *, 要传 all, 传 * 会将路径解析出来再给到脚本,这样不行
 # 5. 这里的遍历不会找出隐藏文件,暂时也不需要找出隐藏文件
@@ -67,111 +67,36 @@
 # 确保脚本抛出遇到的错误
 set -e
 
-: << !
-1. pull / push 也区分加密解密的作用
-2. 需要加密的文件夹
-3. 不需要加密的文件夹
-这里为什么要创建值接收一下? 因为直接这样操作会报错: (${3[@]} selfEncrypt)
-!
-ParamsA=$1
-ParamsB=$2
-ParamsC=$3
+# 参数一: on / off / push / pull / nogit / back
+#        on / off:    代表 加密,解密
+#        push / pull: 代表 加密,解密 (会提交代码到远程)
+#        nogit:       代表 加密的源码(SELF_ENCRYPT文件夹)不会提交到git
+#        back:        代表 回滚上一次操作(为了防止加密解密错误)
 
-# 入参封装层
-ParamsCArr=(${ParamsC[@]} selfEncrypt)
+# 参数二: files 需要加密的文件夹 (支持 all)
 
-# 判断 $file 是否在数组 $ParamsCArr 内
-function includeFile() {
-  IFS=$'\n' # 保证文件遍历正常(不会因为空格所影响)
-  isPass=true
-  for ex in ${ParamsCArr[@]}
-  do
-    if [ $ex = $1 ]
-      then isPass=false
-    fi
-  done
-}
+# 参数三: files 不需要加密的文件夹 (不支持 all)
 
-function getdir() {
-  IFS=$'\n'
-  for file in $*
-  do
-    includeFile $file
-    if ${isPass}
-      then
-        if test -f $file
-          then fileArr=(${fileArr[@]} $file)
-          else getdir $file/*
-        fi
-    fi
-  done
-}
-
-for infile in ${ParamsB[@]}
-do
-  if [ $infile = 'all' ]
+if [ $1 = nogit ]
+  then
+  echo 'SELF_ENCRYPT' >> '.git/info/exclude'
+elif [[ $1 = on || $1 = off || $1 = push || $1 = pull ]]
+  then
+  if [ $1 = on || $1 = off ]
     then
-      getdir * # 遍历所有文件
-      break
-    else
-      getdir $infile # 遍历特定文件
-  fi
-done
-
-# 得到真正需要加密(或者解密)的文件数组
-# echo ${fileArr[@]}
-
-if [ -z $fileArr ]
-  then echo '根据规则选取的文件数为0,请重新选择'
-  else
-    _pass=true
-    if [ $ParamsA = push ]
-      then
-        # 加密场景: 不能重复加密,后缀名必须 不带有encrypt
-        for file in ${fileArr[@]}
-        do
-          if [ ${file:0-7} = encrypt ]
-            then
-            _pass=false
-            echo '加密失败,'$file'文件已加密,请重新确定避免重复加密'
-          fi
-        done
-      else
-        # 解密场景: 不能重复解密,后缀名必须 带有encrypt
-        for file in ${fileArr[@]}
-        do
-          if [ ${file:0-7} != encrypt ]
-            then
-            _pass=false
-            echo '解密失败,'$file'文件不是已加密文件,只能对已加密文件解密'
-          fi
-        done
-    fi
-
-    if [ $_pass = true ]
-      then
-      node ./selfEncrypt/utils.js $1 ${fileArr[@]}
-
-      if [ $ParamsA = push ]
+      sh SELF_ENCRYPT/kernel.sh $1 $2 $3
+    elif then
+      if [ $1 = push ]
         then
-          # 对加密后的文件添加后缀名
-          for file in ${fileArr[@]}
-          do
-            mv $file $file.encrypt
-          done
+          # 先加密再推送
+          sh SELF_ENCRYPT/kernel.sh on $2 $3
+          sh SELF_ENCRYPT/push.sh $1
         else
-          # 对解密后的文件删除后缀名
-          for file in ${fileArr[@]}
-          do
-            mv $file ${file%*.encrypt}
-          done
+          # 先拉取再解密
+          sh SELF_ENCRYPT/push.sh $1
+          sh SELF_ENCRYPT/kernel.sh off all
       fi
-    fi
+  fi
+else
+  echo '请输入正确的首位参数'
 fi
-
-
-# https://blog.csdn.net/buxiaoxindasuile/article/details/50791050
-
-# git add -A
-# git commit -m 'feat: 每日任务'
-# git push origin main

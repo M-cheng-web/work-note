@@ -33,12 +33,12 @@ const isFile = (file) => {
  */
 function setFile(filePath, isEncrypt = true) {
   if (isFile(filePath)) { // 文件
-    if (filePath.charAt(0) === '.' || filePath === 'selfEncrypt') return;
+    if (filePath.charAt(0) === '.' || filePath === 'SELF_ENCRYPT') return;
     const data = fs.readFileSync(filePath, 'utf-8')
     fs.writeFileSync(filePath, isEncrypt ? Encrypt(data) : Decrypt(data));
   } else { // 文件夹
     fs.readdirSync(filePath).forEach((filename) => {
-      if (filename.charAt(0) === '.' || filename === 'selfEncrypt') return;
+      if (filename.charAt(0) === '.' || filename === 'SELF_ENCRYPT') return;
       setFile(path.join(filePath, filename), isEncrypt);
     })
   }
