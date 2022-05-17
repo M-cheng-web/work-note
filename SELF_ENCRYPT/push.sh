@@ -3,7 +3,7 @@
 # 负责提交代码 / 更新代码
 
 defaultBranch=main
-defaultCommit='feat: 每日任务'
+defaultCommit="feat: 每日任务"
 
 if [ $1 = push ]
   then
