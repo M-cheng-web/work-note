@@ -11,6 +11,6 @@ defaultBranch=main
 #     # git $1 origin $defaultBranch
 # fi
 
-echo git $1 origin $defaultBranch
+echo git $1 origin $defaultBranch....
 
 git $1 origin $defaultBranch

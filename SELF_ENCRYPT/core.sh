@@ -64,7 +64,7 @@ if [ -z $fileArr ]
           if [ ${file:0-7} = encrypt ]
             then
             _pass=false
-            echo '加密失败,'$file'文件已加密,请重新确定避免重复加密'
+            echo '加密失败,[ '$file' ]文件已加密,请重新确定避免重复加密'
           fi
         done
       else
@@ -74,7 +74,7 @@ if [ -z $fileArr ]
           if [ ${file:0-7} != encrypt ]
             then
             _pass=false
-            echo '解密失败,'$file'文件不是已加密文件,只能对已加密文件解密'
+            echo '解密失败,[ '$file' ]文件不是已加密文件,只能对已加密文件解密'
           fi
         done
     fi
