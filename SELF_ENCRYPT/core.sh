@@ -78,7 +78,7 @@ if [ -z $fileArr ]
           fi
 
           if [[ ${file:0-7} = encrypt && $ParamsC = adhoc ]]
-            then storageFile=(${storageFile[@] $file})
+            then storageFile=(${storageFile[@]} $file)
           fi
         done
     fi
