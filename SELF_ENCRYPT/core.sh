@@ -92,21 +92,22 @@ if [ -z $fileArr ]
 
     if [ $_pass = true ]
       then
-      node ./SELF_ENCRYPT/utils.js $1 ${fileArr[@]}
+        echo $fileArr
+        node ./SELF_ENCRYPT/utils.js $1 ${fileArr[@]}
 
-      if [ $ParamsA = on ]
-        then
-          # 对加密后的文件添加后缀名
-          for file in ${fileArr[@]}
-          do
-            mv $file $file.encrypt
-          done
-        else
-          # 对解密后的文件删除后缀名
-          for file in ${fileArr[@]}
-          do
-            mv $file ${file%*.encrypt}
-          done
-      fi
+        if [ $ParamsA = on ]
+          then
+            # 对加密后的文件添加后缀名
+            for file in ${fileArr[@]}
+            do
+              mv $file $file.encrypt
+            done
+          else
+            # 对解密后的文件删除后缀名
+            for file in ${fileArr[@]}
+            do
+              mv $file ${file%*.encrypt}
+            done
+        fi
     fi
 fi

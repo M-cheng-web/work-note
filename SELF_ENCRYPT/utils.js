@@ -48,7 +48,6 @@ const parmas = process.argv.slice(2);
 const isEncrypt = parmas[0] === 'on';
 const fileList = parmas.slice(1);
 fileList.forEach((file) => {
-  console.log('file', file);
   const filePath = path.resolve(__dirname, `../${file}`);
   setFile(filePath, isEncrypt);
 })
