@@ -53,7 +53,7 @@ done
 # echo ${fileArr[@]}
 
 if [ -z $fileArr ]
-  then echo '根据规则选取的文件数为0,请重新选择'
+  then echo '根据规则选取的文件数为0,请重新选择!'
   else
     _pass=true
     if [ $ParamsA = on ]
@@ -71,13 +71,23 @@ if [ -z $fileArr ]
         # 解密场景: 不能重复解密,后缀名必须 带有encrypt
         for file in ${fileArr[@]}
         do
-          if [ ${file:0-7} != encrypt ]
+          if [[ ${file:0-7} != encrypt && $ParamsC != adhoc ]]
             then
-            # todo 这里要加个判断,不能有失败的就终止,毕竟拉取的时候是全局检索
-            _pass=false
-            echo '解密失败,[ '$file' ]文件不是已加密文件,只能对已加密文件解密'
+              _pass=false
+              echo '解密失败,[ '$file' ]文件不是已加密文件,只能对已加密文件解密'
+          fi
+
+          if [[ ${file:0-7} = encrypt && $ParamsC = adhoc ]]
+            then storageFile=(${storageFile[@] $file})
           fi
         done
+        if [ $ParamsC = adhoc ]
+          then fileArr=${storageFile[@]}
+        fi
+
+        if [ -z $fileArr ]
+          then echo 'pull 解密文件长度为0'
+        fi
     fi
 
     if [ $_pass = true ]

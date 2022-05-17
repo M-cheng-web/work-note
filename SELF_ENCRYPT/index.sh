@@ -95,7 +95,7 @@ elif [[ $1 = on || $1 = off || $1 = push || $1 = pull ]]
         else
           # 先拉取再解密
           sh SELF_ENCRYPT/push.sh $1
-          sh SELF_ENCRYPT/core.sh off all
+          sh SELF_ENCRYPT/core.sh off all adhoc
       fi
   fi
 else
