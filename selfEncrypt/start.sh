@@ -6,13 +6,16 @@
 
 #!/usr/bin/env sh
 
-echo 1
-
-需要自动屏蔽 git  怎么做
+# 需要自动屏蔽 git  怎么做
 
 # mv selfEncrypt .selfEncrypt
 
-mv asdqwe .asdqwe
+# mv asdqwe .asdqwe
+
+touch .selfEncrypt
+
+echo '.selfEncrypt' > '.git/info/exclude'
+
 
 # filePath=".test_file.zzz"
 # touch $filePath
