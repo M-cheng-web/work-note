@@ -86,9 +86,9 @@ if [ -z $fileArr ]
     if [ $_pass = true ]
       then
         # 这里之所以中转一下,是因为发现下面的参数不能实时更新,只能换一个值存
-        if [ $ParamsC = adhoc ]
-          then newFileArr=${storageFile[@]}
-          else newFileArr=${fileArr[@]}
+        if [[ $ParamsC = adhoc ]]
+          then newFileArr=(${storageFile[@]})
+          else newFileArr=(${fileArr[@]})
         fi
         node ./SELF_ENCRYPT/utils.js $1 ${newFileArr[@]}
 
