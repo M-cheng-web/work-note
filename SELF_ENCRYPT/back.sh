@@ -26,7 +26,7 @@ IFS=$'\n'
 
 dir=".back"
 
-if [ $1 = _self ]
+if [[ $1 = _self ]]
   then
     # 备份
     if [ -e $dir ]; then rm -rf $dir; fi
@@ -39,7 +39,8 @@ if [ $1 = _self ]
     if [ -e $dir ]
       then
         cd ..
-        cp -Rvf ./SELF_ENCRYPT/.back/* ./
+        rm -rf `ls | grep -v SELF_ENCRYPT`
+        cp -rf ./SELF_ENCRYPT/.back/* ./
       else
         echo "只有操作了文件才能进行回滚"
     fi
