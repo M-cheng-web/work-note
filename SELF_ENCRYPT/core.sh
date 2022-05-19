@@ -26,7 +26,7 @@ function getdir() {
   IFS=$'\n'
   for file in $*
   do
-    echo $file
+    # echo $file
     includeFile $file
     if ${isPass}
       then

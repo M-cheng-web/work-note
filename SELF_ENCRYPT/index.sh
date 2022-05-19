@@ -80,17 +80,20 @@ set -e
 if [ $1 = nogit ]
   then
   echo 'SELF_ENCRYPT' >> '.git/info/exclude'
+elif [ $1 = back ]
+  then
+  sh SELF_ENCRYPT/back.sh $2 "$3"
 elif [[ $1 = on || $1 = off || $1 = push || $1 = pull ]]
   then
   if [[ $1 = on || $1 = off ]]
     then
       # 只负责加密 / 解密
-      sh SELF_ENCRYPT/core.sh $1 $2 $3
+      sh SELF_ENCRYPT/core.sh $1 "$2" "$3"
     else
       if [ $1 = push ]
         then
           # 先加密再推送
-          sh SELF_ENCRYPT/core.sh on $2 $3
+          sh SELF_ENCRYPT/core.sh on "$2" "$3"
           sh SELF_ENCRYPT/push.sh $1
         else
           # 先拉取再解密
