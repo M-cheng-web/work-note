@@ -82,7 +82,7 @@ if [ $1 = nogit ]
   echo 'SELF_ENCRYPT' >> '.git/info/exclude'
 elif [ $1 = back ]
   then
-  sh SELF_ENCRYPT/back.sh $2 "$3"
+  sh SELF_ENCRYPT/back.sh
 elif [[ $1 = on || $1 = off || $1 = push || $1 = pull ]]
   then
   if [[ $1 = on || $1 = off ]]

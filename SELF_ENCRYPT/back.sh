@@ -20,37 +20,20 @@ IFS=$'\n'
 
 dir=".back"
 
-ParamsB=($2)
-
-if [[ $1 = _self && ${#ParamsB[@]} -gt 0 ]]
+if [ $1 = _self ]
   then
     # 备份
-    echo 开启备份
     if [ -e $dir ]; then rm -rf $dir; fi
     mkdir $dir
-    cd -
+    cd ..
     files=`ls | grep -v SELF_ENCRYPT`
-    
-    for file in ${files[@]}
-    do
-      echo $file
-      cp -avx $file ./SELF_ENCRYPT/.back
-    done
+    cp -ax $files ./SELF_ENCRYPT/.back
   else
     # 回滚
-    echo 开启回滚
     if [ -e $dir ]
       then
-        # files=`ls`
-
-        cd -
-
-        cp -avxf ./SELF_ENCRYPT/.back/* ./*
-
-        # for file in ${files[@]}
-        # do
-        #   echo $file
-        # done
+        cd ..
+        cp -Rvf ./SELF_ENCRYPT/.back/* ./
       else
         echo "只有操作了文件才能进行回滚"
     fi

@@ -90,6 +90,7 @@ if [ -z $fileArr ]
           then newFileArr=(${storageFile[@]})
           else newFileArr=(${fileArr[@]})
         fi
+        sh ./SELF_ENCRYPT/back.sh _self
         node ./SELF_ENCRYPT/utils.js $1 ${newFileArr[@]}
 
         if [ $ParamsA = on ]
