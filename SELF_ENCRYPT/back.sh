@@ -14,8 +14,11 @@
 
 set -e # 确保脚本抛出遇到的错误
 
-cd `dirname $0` # 进入工作目录
+cd `dirname $0` # 进入工作目录 (也就是 SELF_ENCRYPT内)
 
+IFS=$'\n'
+
+dir=".back"
 
 ParamsB=($2)
 
@@ -23,13 +26,10 @@ if [[ $1 = _self && ${#ParamsB[@]} -gt 0 ]]
   then
     # 备份
     echo 开启备份
-    dir=".back"
     if [ -e $dir ]; then rm -rf $dir; fi
-    IFS=$'\n'
     mkdir $dir
     cd -
     files=`ls | grep -v SELF_ENCRYPT`
-      # cp -avx demo.js ./SELF_ENCRYPT/.back
     
     for file in ${files[@]}
     do
@@ -39,5 +39,19 @@ if [[ $1 = _self && ${#ParamsB[@]} -gt 0 ]]
   else
     # 回滚
     echo 开启回滚
+    if [ -e $dir ]
+      then
+        # files=`ls`
 
+        cd -
+
+        cp -avxf ./SELF_ENCRYPT/.back/* ./*
+
+        # for file in ${files[@]}
+        # do
+        #   echo $file
+        # done
+      else
+        echo "只有操作了文件才能进行回滚"
+    fi
 fi
