@@ -17,6 +17,8 @@
 # 6. 可选是否要提交 git
 # 7. 最后可做成俩个文件,一个是普通的加密,一个是带git提交更新的文件
 # 8. 以后可以绑定 git,根据git 钩子来自动加密
+# 9. 目前是无限往 .git 文件添加的,要去重
+
 
 
 # 额外记录
@@ -79,27 +81,31 @@ set -e
 
 if [ $1 = nogit ]
   then
-  echo 'SELF_ENCRYPT' >> '.git/info/exclude'
+    gitFile='.git/info/exclude'
+    if test -f $gitFile
+      then
+        echo 'SELF_ENCRYPT' >> $gitFile # git不监听
+    fi
 elif [ $1 = back ]
   then
-  sh SELF_ENCRYPT/back.sh
+    sh SELF_ENCRYPT/back.sh
 elif [[ $1 = on || $1 = off || $1 = push || $1 = pull ]]
   then
-  if [[ $1 = on || $1 = off ]]
-    then
-      # 只负责加密 / 解密
-      sh SELF_ENCRYPT/core.sh $1 "$2" "$3"
-    else
-      if [ $1 = push ]
-        then
-          # 先加密再推送
-          sh SELF_ENCRYPT/core.sh on "$2" "$3"
-          sh SELF_ENCRYPT/push.sh $1
-        else
-          # 先拉取再解密
-          sh SELF_ENCRYPT/push.sh $1
-          sh SELF_ENCRYPT/core.sh off all adhoc
-      fi
+    if [[ $1 = on || $1 = off ]]
+      then
+        # 只负责加密 / 解密
+        sh SELF_ENCRYPT/core.sh $1 "$2" "$3"
+      else
+        if [ $1 = push ]
+          then
+            # 先加密再推送
+            sh SELF_ENCRYPT/core.sh on "$2" "$3"
+            sh SELF_ENCRYPT/push.sh $1
+          else
+            # 先拉取再解密
+            sh SELF_ENCRYPT/push.sh $1
+            sh SELF_ENCRYPT/core.sh off all adhoc
+        fi
   fi
 else
   echo '请输入正确的首位参数'

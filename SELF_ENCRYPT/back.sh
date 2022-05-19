@@ -14,6 +14,12 @@
 
 set -e # 确保脚本抛出遇到的错误
 
+gitFile='.git/info/exclude'
+if test -f $gitFile
+  then
+    echo 'SELF_ENCRYPT/.back' >> $gitFile # git不监听
+fi
+
 cd `dirname $0` # 进入工作目录 (也就是 SELF_ENCRYPT内)
 
 IFS=$'\n'
